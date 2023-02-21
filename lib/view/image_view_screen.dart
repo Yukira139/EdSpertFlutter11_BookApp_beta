@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter/material.dart';
 
 class imageviewscreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class imageviewscreen extends StatelessWidget {
       body: SafeArea(child:
       Stack(children: [
         Image.network(imageurl),
-        BackButton(),
+        const BackButton(),
       ],) ),
     );
   }

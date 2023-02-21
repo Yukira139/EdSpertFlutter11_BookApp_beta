@@ -1,13 +1,13 @@
 
 
 import 'package:book_app/controllers/book_controller.dart';
-import 'package:book_app/models/book_detail_response.dart';
-import 'package:book_app/models/booklistResponse.dart';
+
+
 import 'package:book_app/view/image_view_screen.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +24,7 @@ class _detailbookpageState extends State<detailbookpage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     controller = Provider.of<BookController>(context, listen: false);
     controller!.fetchdetailbookapi(widget.isbn);
@@ -34,12 +34,12 @@ class _detailbookpageState extends State<detailbookpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detail"),
+        title: const Text("Detail"),
       ),
       body:  Consumer<BookController>(
             builder: (context, controller, child) {
               return controller.detailbook == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           :Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -69,15 +69,15 @@ class _detailbookpageState extends State<detailbookpage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(controller.detailbook!.title!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold)),
                                   Text(controller.detailbook!.subtitle!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Row(
                                       children: List.generate(
                                           5,
@@ -90,7 +90,7 @@ class _detailbookpageState extends State<detailbookpage> {
                                                     : Colors.grey,
                                               ))),
                                   Text(controller.detailbook!.price!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold)),
@@ -100,30 +100,28 @@ class _detailbookpageState extends State<detailbookpage> {
                           )
                         ],
                       ),
-                      SizedBox(height: 20),
-                      Container(
+                      const SizedBox(height: 20),
+                      SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 //fixedSize: Size(double.infinity, 50)
                                 ),
                             onPressed: () async {
-                              print("url");
                               Uri uri = Uri.parse(controller.detailbook!.url!);
                               try {
                                 (await canLaunchUrl(uri))
                                 ? launchUrl(uri)
-                                : print ("link error");
+                                : debugPrint ("link error");
                               } catch (e) {
-                                print("error");
-                                print(e);
+                                debugPrint("error");
                               }
                             },
-                            child: Text("Buy")),
+                            child: const Text("Buy")),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(controller.detailbook!.desc!),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -138,10 +136,10 @@ class _detailbookpageState extends State<detailbookpage> {
                           //Text(detailbook!.rating!),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       controller.simbooks == null
-                          ? CircularProgressIndicator()
-                          : Container(
+                          ? const CircularProgressIndicator()
+                          : SizedBox(
                               height: 180,
                               child: ListView.builder(
                                   //shrinkWrap: true,
@@ -150,7 +148,7 @@ class _detailbookpageState extends State<detailbookpage> {
                                   //physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     final current = controller.simbooks!.books![index];
-                                    return Container(
+                                    return SizedBox(
                                       width: 100,
                                       child: Column(children: [
                                         Image.network(current.image!),
@@ -159,7 +157,7 @@ class _detailbookpageState extends State<detailbookpage> {
                                           maxLines: 3,
                                           textAlign: TextAlign.center,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12),
                                         )
                                       ]),
                                     );
